@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+        <title>Header Fragment</title>
+    </head>
+    <body>
+        <!-- Main Body of Page -->
+        <div class="container">
+            <div class="row m-4" th:fragment="postFilter (action, method)">
+                <div class="col text-center border border-dark">
+                    <form th:action="${action}" th:method="${method}">
+                        <div class="d-flex flex-row">
+                            <div class="p-2 align-self-center">Categories
+                                <select id="category" name="categoryId" class="" >
+                                    <option th:value="-1"></option>
+                                    <option th:each="category : ${categories}" 
+                                            th:value="${category.categoryId}" 
+                                            th:text="${category.name}">
+                                        Category Name</option>
+                                </select> 
+                            </div>
+                            <div class="p-2 align-self-center">Tags
+                                <select id="tag" name="tagId" class="" >
+                                    <option th:value="-1"></option>
+                                    <option th:each="tag : ${tags}" 
+                                            th:value="${tag.tagId}" 
+                                            th:text="${tag.name}">
+                                        Tag Name</option>
+                                </select> 
+                            </div>
+                            <div class="p-2"><button type="submit" class="btn btn-primary">Filter</button></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- End main body -->
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    </body>
+</html>

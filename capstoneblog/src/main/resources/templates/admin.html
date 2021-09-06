@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <title>Blog Admin</title>
+  </head>
+  <body>
+    <!-- Main Body of Page -->
+    <div th:insert="fragments/header.html :: header"></div>
+    <div class="container">
+        <div class="row m-4">
+            <div class="col text-center border border-dark">
+                <div id="blogPageHeadingsTable">
+                    <table id="blogTable" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th width="15%">Categories</th>
+                                <th width="15%">Tags</th>
+                                <th width="15%">Posts</th>
+                                <th width="50%"><h1>Jerrys Big Blogs</h1></th>
+                                <th width="15%">Admin</th>
+                            </tr>
+                            <tr>
+                                <th width="15%">
+                                    <select id="category" name="categoryId" class="form-control" >
+                                        <option th:value="-1"></option>
+                                        <option th:each="category : ${categories}" 
+                                                th:value="${category.categoryId}" 
+                                                th:text="${category.name}">
+                                            Category Name</option>
+                                    </select> 
+                                </th>
+                                <th width="15%">
+                                    <select id="tag" name="tagId" class="form-control" >
+                                        <option th:value="-1"></option>
+                                        <option th:each="tag : ${tags}" 
+                                                th:value="${tag.tagId}" 
+                                                th:text="${tag.name}">
+                                            Category Name</option>
+                                    </select> 
+                                </th>
+                                <th width="15%">
+                                  <select id="post" name="postId" class="form-control" >
+                                      <option th:value="-1"></option>
+                                      <option th:each="post : ${posts}" 
+                                              th:value="${post.postId}" 
+                                              th:text="${post.name}">
+                                          Create New Post</option>
+                                      <option th:each="post : ${posts}" 
+                                              th:value="${post.postId}" 
+                                              th:text="${post.name}">
+                                          Approve Post</option>
+                                  </select>
+                              </th>
+                                <td width="40%"></td>
+                                <td width="30%"></td>
+                                <td width="50%"></td>
+                            </tr>
+                        </thead>
+                        <!-- we will add data rows dynamically to the tbody -->
+                        <tbody>
+                        </tbody> 
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row m-4">
+            <div class="col text-center border border-dark">
+                    <div id="blogPostTable">
+                        <table id="blogTable" class="table table-hover">
+                            <!-- we will add data rows dynamically to the tbody -->
+                            <tbody>
+                                
+                                <tr th:each="post : ${posts}">
+                                    <td th:text="${post.title}">Article Title</td>
+                                    <td th:text="${post.publishedAt}">Article Publsihed Date</td>
+                                    <td th:text="${post.content}">Article Content</td>
+                                </tr>
+                            </tbody> 
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+
+    <!-- End main body -->
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>;

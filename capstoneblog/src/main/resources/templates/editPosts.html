@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+         
+        <title>Blog - Edit Posts</title>
+    </head>
+    <body>
+        <!-- Main Body of Page -->
+        <div class="container" style="width=100%;">
+            <div th:insert="fragments/header.html :: header"></div>
+            <div th:insert="fragments/postFilter.html :: postFilter(action='editPosts', method='GET')"></div>
+            <div class="row full border border-dark">
+                <div class="col text-center m-3">
+                    <table class="table table-striped width=100%">
+                        <thead>
+                            <tr>
+                                <th>PostId</th>
+                                <th>Creator</th>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Tags</th>
+                                <th>Created</th>
+                                <th>Edited</th>
+                                <th>Expiry</th>
+                                <th>Edit</th>
+                                <th>Publish</th>
+                                <th sec:authorize="hasAuthority('OWNER')">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="post : ${posts}">
+                                <td th:text="${post.postId}">PostId</td>
+                                <td th:text="${post.user.firstName + ' ' + post.user.lastName}">Creator</td>
+                                <td>
+                                    <a href="#" th:href="@{/post(id=${post.postId})}" th:text="${post.title}">Title</a>
+                                </td>
+                                <td th:text="${post.category?.name}">Category</td>
+                                <td><ul class="list-group">
+                                        <li th:each="tag : ${post.tags}" th:text="${tag.name}" class="list-group-item py-1"/>
+                                    </ul>
+                                </td>
+                                <td th:text="${#temporals.format(post.createdAt, 'dd-MM-yyyy HH:mm')}"><p>Created</p></td>
+                                <td th:text="${#temporals.format(post.editedAt, 'dd-MM-yyyy HH:mm')}"><p>Edited</p></td>
+                                <td th:text="${#temporals.format(post.expiryDate, 'dd-MM-yyyy HH:mm')}"><p>Expiry</p></td>
+                                <td><a href="#" th:href="@{/admin/editPost(id=${post.postId})}">Edit</a></td>
+                                <td th:if="${post.published == 1}" th:text="${'Published: ' + #temporals.format(post.createdAt, 'dd-MM-yyyy HH:mm')}">
+                                    Published
+                                </td>
+                                <td sec:authorize="hasAuthority('ADMIN')" th:if="${post.published != 1}">
+                                    Unpublished
+                                </td>
+                                <td sec:authorize="hasAuthority('OWNER')" th:if="${post.published != 1}">
+                                    <a href="#" th:href="@{/owner/publishPost(id=${post.postId})}">Publish</a>
+                                </td>
+                                <td sec:authorize="hasAuthority('OWNER')">
+                                    <a href="#" th:href="@{/owner/deletePost(id=${post.postId})}">Delete</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- End main body -->
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    </body>
+</html>;
